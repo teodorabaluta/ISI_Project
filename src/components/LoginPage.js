@@ -10,9 +10,8 @@ import { auth } from '../firebase'; // Asigură-te că folosești instanța core
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState(''); // Starea pentru rol
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // Folosim useNavigate pentru redirecționare
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -20,17 +19,7 @@ const LoginPage = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-
-      // Salvăm rolul și token-ul în localStorage
-      localStorage.setItem('userRole', role);
-      localStorage.setItem('userToken', email); // Sau poți salva ID-ul utilizatorului
-
-      // Navigăm în funcție de rol
-      if (role === 'organizer') {
-        navigate('/profile');
-      } else if (role === 'participant') {
-        navigate('/groups');
-      }
+      navigate('/profile');  // Navigăm către profil indiferent de rol
     } catch (err) {
       setError('Login invalid. Please check your credentials.');
     }
@@ -58,26 +47,6 @@ const LoginPage = () => {
             required
           />
         </div>
-        <div className="role-selection">
-          <label>
-            <input 
-              type="radio" 
-              value="organizer" 
-              checked={role === 'organizer'} 
-              onChange={(e) => setRole(e.target.value)} 
-            />
-            Organizator
-          </label>
-          <label>
-            <input 
-              type="radio" 
-              value="participant" 
-              checked={role === 'participant'} 
-              onChange={(e) => setRole(e.target.value)} 
-            />
-            Participant
-          </label>
-        </div>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <button type="submit">Login</button>
       </form>
@@ -87,5 +56,6 @@ const LoginPage = () => {
     </div>
   );
 };
+
 
 export default LoginPage;

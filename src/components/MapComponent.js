@@ -33,7 +33,7 @@ const MapComponent = () => {
   const [directions, setDirections] = useState(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
-  const [isOrganizer, setIsOrganizer] = useState(false);
+  const [isOrganizer, setIsOrganizer] = useState(true);
   const [userLocation, setUserLocation] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -70,11 +70,7 @@ const MapComponent = () => {
           const currentUserEmail = auth.currentUser?.email;
 
           // Check if the user is the creator
-          if (groupData.creator === currentUserEmail) {
-            setIsOrganizer(true);
-          } else {
-            setIsOrganizer(false);
-          }
+          
         } else {
           console.error("Group document does not exist!");
         }
@@ -166,7 +162,6 @@ const MapComponent = () => {
     }
   };
 
-  // Remove a location
   const handleRemoveLocation = async (id) => {
     if (!groupId) {
       console.error("No group ID for deleting location.");

@@ -1,0 +1,22 @@
+.group-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;  
+  }
+  
+  .group-details button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #9523aa;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .group-details a:hover {
+    color: #FFB7B2;
+  }
+  

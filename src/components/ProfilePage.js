@@ -13,17 +13,15 @@ const ProfilePage = () => {
   const db = getFirestore();
 
   useEffect(() => {
-    // Verificăm dacă utilizatorul este autentificat
     if (!user) {
       setError('Trebuie să fii logat pentru a vizualiza grupurile.');
       navigate('/');  // Dacă nu este logat, redirecționează la login
       return;
     }
 
-    // Fetch grupuri ale utilizatorului
     const fetchGroups = async () => {
       try {
-        const q = query(collection(db, 'groups'), where('creator', '==', user.email));  // Alege grupurile în care utilizatorul este creator
+        const q = query(collection(db, 'groups'), where('participants', 'array-contains', user.email));
         const querySnapshot = await getDocs(q);
         const allGroups = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setGroups(allGroups);
@@ -39,8 +37,8 @@ const ProfilePage = () => {
     navigate('/create-group');  // Navighează la pagina de creare grup
   };
 
-  const handleViewMap = (groupId) => {
-    navigate(`/map/${groupId}`);  // Navighează la pagina de hartă a grupului
+  const handleJoinGroup = () => {
+    navigate('/groups');  // Navighează la pagina de alăturare la un grup
   };
 
   return (
@@ -55,10 +53,7 @@ const ProfilePage = () => {
             <div key={group.id} className="group-card">
               <h3>{group.name}</h3>
               <p>{group.description}</p>
-              <p>Creat de: {group.creator}</p>
-
-              {/* Buton pentru vizualizarea hărții grupului */}
-              <button onClick={() => handleViewMap(group.id)}>Vezi Harta</button>
+              <button onClick={() => navigate(`/group-details/${group.id}`)}>Accesează grupul</button>
             </div>
           ))
         ) : (
@@ -67,6 +62,7 @@ const ProfilePage = () => {
       </div>
       
       <button onClick={handleCreateGroup}>Creează un nou grup</button>
+      <button onClick={handleJoinGroup}>Alătură-te unui grup</button>
     </div>
   );
 };

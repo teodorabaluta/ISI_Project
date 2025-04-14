@@ -3,7 +3,7 @@
 .group-page {
     padding: 20px;
     background-color: #D6AEDD;
-    min-height: 100vh; /* Asigură-te că pagina acoperă întreaga înălțime */
+    min-height: 50vh; /* Asigură-te că pagina acoperă întreaga înălțime */
     font-family: 'Arial', sans-serif;
   }
   

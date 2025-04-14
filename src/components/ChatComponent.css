@@ -1,0 +1,68 @@
+/* src/components/ChatComponent.css */
+.chat-container2 {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  width: 98%;
+  background-color: #f4eaf8;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.chat-messages2 {
+  width: 100%;
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.chat-input2 {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.chat-input2 input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+.chat-input2 button {
+  width: 100px;
+  padding: 8px 16px;
+  background-color: #63179a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.own-message2 {
+  background-color: #c90b86;
+  color: white;
+  align-self: flex-end;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 5px;
+  width: 30%; /* Ajustează lățimea după preferințe */
+  margin-left: auto; /* Asigură alinierea la dreapta */
+}
+
+.other-message2 {
+  background-color: #e9ecef;
+  color: #333;
+  align-self: flex-start;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 5px;
+  width: 30%; /* Ajustează lățimea după preferințe */
+}

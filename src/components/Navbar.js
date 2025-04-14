@@ -1,17 +1,20 @@
-// src/components/Navbar.js
 import React from 'react';
-import { Link } from 'react-router-dom';  // Folosește Link din react-router-dom pentru navigare
+import { Link } from 'react-router-dom';
+import './Navbar.css';
+import logoImage from '../assets/coverv2.jpg'; // Asigură-te că calea este corectă
 
 const Navbar = () => {
-  return (
-    <nav>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/profile">Profile</Link></li>
-        <li><Link to="/create-route">Create Route</Link></li>
-      </ul>
-    </nav>
-  );
+    return (
+        <nav className="navbar">
+            <div className="navbar-logo">
+                <Link to="/"><img src={logoImage} alt="Logo" /></Link>
+            </div>
+            <div className="navbar-links">
+                <Link to="/profile">Grupurile Mele</Link>
+                <Link to="/about-us">Despre Noi</Link>
+            </div>
+        </nav>
+    );
 };
 
 export default Navbar;

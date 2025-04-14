@@ -1,0 +1,35 @@
+.about-us {
+    display: flex;
+    align-items: center; /* Alinează vertical conținutul */
+    justify-content: center; /* Alinează orizontal conținutul */
+    padding: 20px;
+    text-align: left; /* Aliniază textul la stânga */
+    color: #333; /* Schimbă culoarea textului pentru mai mult contrast */
+     /* Opțional: schimbă fundalul dacă este necesar */
+}
+
+.about-us-text {
+    flex: 1;
+    padding: 0 20px; /* Adaugă un pic de spațiu între text și imagine */
+}
+
+.about-us h1, .about-us h2 {
+    color: #5D1049; /* O nuanță mai închisă pentru titluri */
+}
+
+.about-us p {
+    color: #6F4E7C; /* O nuanță mai deschisă pentru paragrafe */
+    font-size: 18px; /* Mărește puțin dimensiunea fontului */
+}
+
+.about-image {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Centrează imaginea în spațiul său */
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 350px; /* Ajustează această valoare după preferințe */
+    height: auto;
+}
