@@ -4,6 +4,8 @@ import { db } from '../firebase';
 import { collection, addDoc, onSnapshot } from 'firebase/firestore';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
 import tippy from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -83,8 +85,13 @@ const CalendarComponent = () => {
         </motion.button>
 
         <FullCalendar
-          plugins={[dayGridPlugin]}
+          plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
           initialView="dayGridMonth"
+          headerToolbar={{
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+          }}
           events={events}
           dayMaxEvents={true}
           eventDidMount={(info) => {
@@ -142,7 +149,6 @@ const CalendarComponent = () => {
         )}
       </AnimatePresence>
 
-      {/* Modal detalii eveniment */}
       {selectedEvent && (
         <div className="modal-backdrop" onClick={() => setSelectedEvent(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
