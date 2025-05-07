@@ -1,107 +1,128 @@
 .expenses-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 2rem;
-    height: calc(100vh - 100px); /* fără scroll extern */
-    padding: 2rem;
-    box-sizing: border-box;
-    overflow: hidden;
-  }
   
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  height: calc(100vh - 100px); /* înălțime disponibilă fără scroll general */
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.expenses-form,
+.expenses-list {
+  background-color: #fbe2fb;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  min-width: 320px;
+  max-width: 450px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.expenses-form form {
+  background-color: #fbe2fb;
+  border: none;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.expenses-list {
+  overflow-y: auto;
+}
+
+.expenses-form h2,
+.expenses-list h2 {
+  text-align: center;
+  font-size: 1.3rem;
+  color: #4a004e;
+  margin-bottom: 1rem;
+}
+
+.expenses-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.expenses-list li {
+  background-color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.expenses-list li strong {
+  color: #722f91;
+}
+
+.expenses-form input,
+.expenses-form select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+
+  font-size: 0.9rem;
+}
+
+.expenses-form label {
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.expenses-form button {
+  background-color: #a24aa6;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+  margin-top: auto;
+}
+
+.expenses-form button:hover {
+  background-color: #872b94;
+}
+
+.checkbox-group {
+  max-height: 160px;
+  overflow-y: auto;
+  background-color: #fbe2fb;
+  border: 1px solid #d7b1e6;
+  border-radius: 8px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.checkbox-item {
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 900px) {
+  .expenses-container {
+    flex-direction: column;
+    height: auto;
+  }
+
   .expenses-form,
   .expenses-list {
-    background-color: #f7d9f7;
-    padding: 1.5rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    flex: 1;
-    min-width: 300px;
-    max-width: 450px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-  }
-  
-  .expenses-form form {
-    flex: 1;
-    overflow-y: auto;
-    padding-right: 5px;
-  }
-  
-  .expenses-list {
-    overflow-y: auto;
-  }
-  
-  .expenses-form h2,
-  .expenses-list h2 {
-    text-align: center;
-    font-size: 1.3rem;
-    color: #4a004e;
-    margin-bottom: 1rem;
-  }
-  
-  .expenses-list ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .expenses-list li {
-    background-color: #fff;
-    padding: 0.75rem 1rem;
-    border-radius: 10px;
-    margin-bottom: 0.75rem;
-    font-size: 0.85rem;
-    color: #333;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  }
-  
-  .expenses-list li strong {
-    color: #722f91;
-  }
-  
-  .expenses-form input,
-  .expenses-form select {
+    max-height: unset;
     width: 100%;
-    padding: 0.6rem;
-    margin-bottom: 1rem;
-    border-radius: 8px;
-    border: 1px solid #b95fbf;
-    font-size: 0.9rem;
   }
-  
-  .expenses-form label {
-    font-weight: 500;
-    margin-bottom: 0.4rem;
-    display: block;
-  }
-  
-  .expenses-form button {
-    background-color: #a24aa6;
-    color: white;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s ease;
-  }
-  
-  .expenses-form button:hover {
-    background-color: #872b94;
-  }
-  
-  @media (max-width: 900px) {
-    .expenses-container {
-      flex-direction: column;
-      height: auto;
-    }
-  
-    .expenses-form,
-    .expenses-list {
-      max-height: unset;
-    }
-  }
-  
+}

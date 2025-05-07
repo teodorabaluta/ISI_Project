@@ -23,7 +23,7 @@ const ExpensesForm = () => {
 
         if (data && data.participants) {
           setParticipants(data.participants);
-          setSelected(data.participants); // îi selectăm pe toți implicit
+          setSelected(data.participants); // selectați toți implicit
         }
       } catch (err) {
         console.error("Failed to fetch group:", err.message);
@@ -97,9 +97,9 @@ const ExpensesForm = () => {
       </select>
 
       <label>Împărțit între:</label>
-      {participants.map((email) => (
-        <div key={email}>
-          <label>
+      <div className="checkbox-group">
+        {participants.map((email) => (
+          <label key={email} className="checkbox-item">
             <input
               type="checkbox"
               checked={selected.includes(email)}
@@ -107,8 +107,8 @@ const ExpensesForm = () => {
             />
             {email}
           </label>
-        </div>
-      ))}
+        ))}
+      </div>
 
       <button type="submit">Adaugă cheltuială</button>
     </form>

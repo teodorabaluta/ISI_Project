@@ -37,6 +37,8 @@ const MapComponent = () => {
   const [userLocation, setUserLocation] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [travelMode, setTravelMode] = useState("DRIVING");
+
 
   const autocompleteRef = useRef(null);
 
@@ -216,7 +218,7 @@ const MapComponent = () => {
         origin,
         destination,
         waypoints,
-        travelMode: window.google.maps.TravelMode.DRIVING,
+        travelMode: window.google.maps.TravelMode[travelMode],
       },
       (result, status) => {
         if (status === window.google.maps.DirectionsStatus.OK) {
@@ -295,6 +297,12 @@ const MapComponent = () => {
             </button>
             <button onClick={generateRoute} disabled={markers.length < 2}>
               Generează traseu
+              <select value={travelMode} onChange={(e) => setTravelMode(e.target.value)}>
+                <option value="DRIVING"> Mașină</option>
+                <option value="WALKING"> Pe jos</option>
+                <option value="TRANSIT">Transport public</option>
+              </select>
+
             </button>
           </>
         )}
@@ -355,6 +363,22 @@ const MapComponent = () => {
           </ul>
         </div>
       </div>
+
+      {directions && (
+        <div className="directions-panel">
+          {directions.routes[0].legs.map((leg, i) => (
+            <div key={i}>
+              <h4>Etapă {i + 1}</h4>
+              <ul>
+                {leg.steps.map((step, j) => (
+                  <li key={j} dangerouslySetInnerHTML={{ __html: step.instructions }} />
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+
 
       <div className={`chat-container ${isChatMinimized ? "minimized" : ""}`}>
         <div className="chat-header">
