@@ -54,30 +54,30 @@ const CreateGroupPage = () => {
 
   return (
     <div className="create-group-page">
-      <h1>Create New Group</h1>
+      <h1>Creează grup nou</h1>
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleCreateGroup}>
         <input 
           type="text" 
-          placeholder="Group Name" 
+          placeholder="Nume grup" 
           value={groupName} 
           onChange={(e) => setGroupName(e.target.value)} 
           required 
         />
         <textarea 
-          placeholder="Group Description" 
+          placeholder="Descriere grup" 
           value={description} 
           onChange={(e) => setDescription(e.target.value)} 
           required 
         />
         <input 
           type="password" 
-          placeholder="Group Password" 
+          placeholder="Parolă" 
           value={password} 
           onChange={(e) => setPassword(e.target.value)} 
           required 
         />
-        <button type="submit">Create Group</button>
+        <button type="submit">Creează</button>
       </form>
     </div>
   );

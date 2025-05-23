@@ -26,8 +26,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="login-page">
+      <h2 className="login-title"></h2>
       <form onSubmit={handleLogin}>
         <div>
           <label>Email:</label>
@@ -39,7 +39,7 @@ const LoginPage = () => {
           />
         </div>
         <div>
-          <label>Password:</label>
+          <label>Parolă:</label>
           <input
             type="password"
             value={password}
@@ -48,13 +48,14 @@ const LoginPage = () => {
           />
         </div>
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit">Login</button>
+        <button type="submit">Conectează-te</button>
       </form>
       <p>
         Nu ai un cont? <a href="/register">Înregistrează-te aici</a>
       </p>
     </div>
   );
+  
 };
 
 

@@ -119,6 +119,22 @@ const MapComponent = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const { latitude, longitude } = pos.coords;
+          setUserLocation({ lat: latitude, lng: longitude });
+        },
+        (err) => console.error("GPS error:", err),
+        { enableHighAccuracy: true }
+      );
+    }, 5000);
+  
+    return () => clearInterval(interval);
+  }, []);
+  
+
   // Fetch locations from Firestore
   useEffect(() => {
     if (!groupId) {
@@ -142,6 +158,15 @@ const MapComponent = () => {
 
     return () => unsubscribe();
   }, [groupId]);
+
+  // 🧹 Resetăm traseul dacă se schimbă metoda de transport
+  useEffect(() => {
+    setDirections(null);
+    setDistance('');
+    setDuration('');
+    setSelectedLocation(null); // <- ascunde infowindow-uri vechi
+  }, [travelMode]);
+  
 
   // Add a new location
   const handleAddLocation = async () => {
@@ -295,15 +320,20 @@ const MapComponent = () => {
             <button onClick={handleAddLocation} disabled={!newLocation}>
               Adaugă locația
             </button>
+            <div className="route-actions">
             <button onClick={generateRoute} disabled={markers.length < 2}>
               Generează traseu
-              <select value={travelMode} onChange={(e) => setTravelMode(e.target.value)}>
-                <option value="DRIVING"> Mașină</option>
-                <option value="WALKING"> Pe jos</option>
-                <option value="TRANSIT">Transport public</option>
-              </select>
-
             </button>
+            <select
+              className="travel-mode-select"
+              value={travelMode}
+              onChange={(e) => setTravelMode(e.target.value)}
+            >
+              <option value="DRIVING">🚗 Mașină</option>
+              <option value="WALKING">🚶 Pe jos</option>
+              <option value="TRANSIT">🚌 Transport public</option>
+            </select>
+          </div>
           </>
         )}
       </div>
@@ -364,20 +394,18 @@ const MapComponent = () => {
         </div>
       </div>
 
-      {directions && (
-        <div className="directions-panel">
-          {directions.routes[0].legs.map((leg, i) => (
-            <div key={i}>
-              <h4>Etapă {i + 1}</h4>
-              <ul>
-                {leg.steps.map((step, j) => (
-                  <li key={j} dangerouslySetInnerHTML={{ __html: step.instructions }} />
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+      {directions && travelMode === "TRANSIT" && (
+  <div className="directions-panel">
+    <ul>
+      {directions.routes[0].legs.flatMap((leg) =>
+        leg.steps.map((step, index) => (
+          <li key={index} dangerouslySetInnerHTML={{ __html: step.instructions }} />
+        ))
       )}
+    </ul>
+  </div>
+)}
+
 
 
       <div className={`chat-container ${isChatMinimized ? "minimized" : ""}`}>

@@ -26,7 +26,7 @@ const RegistrationPage = () => {
 
   return (
     <div className="registration-page">
-      <h1>Register</h1>
+      <h1>Creează un cont nou</h1>
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleRegister}>
         <input 
@@ -38,12 +38,12 @@ const RegistrationPage = () => {
         />
         <input 
           type="password" 
-          placeholder="Password" 
+          placeholder="Parolă" 
           value={password} 
           onChange={(e) => setPassword(e.target.value)} 
           required 
         />
-        <button type="submit">Register</button>
+        <button type="submit">Creează</button>
       </form>
     </div>
   );
