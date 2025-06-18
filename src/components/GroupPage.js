@@ -1,7 +1,7 @@
-//src/components/GroupPage.js
+// src/components/GroupPage.js
 import React, { useState } from 'react';
-import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
-import { auth } from '../firebase';
+import { getFirestore, collection, query, where, getDocs, doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 import './GroupPage.css';
 
 const GroupPage = () => {
@@ -10,10 +10,16 @@ const GroupPage = () => {
   const [error, setError] = useState('');
   const db = getFirestore();
 
-  // Funcție pentru a verifica și a te alătura grupului
   const joinGroup = async () => {
     if (!groupName || !groupPassword) {
       setError('Completează toate câmpurile.');
+      return;
+    }
+
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (!user) {
+      setError('Trebuie să fii logat pentru a te alătura unui grup.');
       return;
     }
 
@@ -27,17 +33,28 @@ const GroupPage = () => {
         return;
       }
 
-      let groupExists = false;
-      querySnapshot.forEach((doc) => {
-        if (doc.data().password === groupPassword) {
-          alert('Te-ai alăturat cu succes grupului!');
-          groupExists = true;
+      let groupDoc = null;
+      querySnapshot.forEach((docSnap) => {
+        if (docSnap.data().password === groupPassword) {
+          groupDoc = docSnap;
         }
       });
 
-      if (!groupExists) {
+      if (!groupDoc) {
         setError('Parola este incorectă.');
+        return;
       }
+
+      // Actualizăm lista participants adăugând utilizatorul
+      const groupRef = doc(db, 'groups', groupDoc.id);
+      await updateDoc(groupRef, {
+        participants: arrayUnion(user.email)
+      });
+
+      alert('Te-ai alăturat cu succes grupului!');
+      setError(''); // reset error dacă a fost vreunul
+      setGroupName('');
+      setGroupPassword('');
     } catch (error) {
       console.error("Error joining group:", error);
       setError('A apărut o problemă la alăturarea la grup.');
