@@ -13,6 +13,7 @@ import MapComponent from './components/MapComponent';
 import ChatComponent from './components/ChatComponent';
 import CalendarComponent from './components/CalendarComponent'; 
 import ExpensesPage from './components/ExpensesPage';
+import DailyRouteMap from './components/DailyRouteMap';
 
 import './App.css';
 
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/group-details/:groupId/chat" element={<ChatComponent />} />
           <Route path="/group-details/:groupId/calendar" element={<CalendarComponent />} />
           <Route path="/group-details/:groupId/expenses" element={<ExpensesPage/>} />
+          <Route path="/daily-route" element={<DailyRouteMap />} />
         </Routes>
       </div>
     </Router>

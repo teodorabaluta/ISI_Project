@@ -1,3 +1,4 @@
+//src/components/GroupPage.js
 import React, { useState } from 'react';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 import { auth } from '../firebase';

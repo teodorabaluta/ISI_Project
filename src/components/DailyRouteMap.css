@@ -1,0 +1,74 @@
+.daily-route-container {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: #f9f7fb;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #3b2c58;
+  }
+  
+  .controls {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .controls label {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+  
+  .controls select {
+    padding: 0.4rem 0.7rem;
+    font-size: 1rem;
+    border: 2px solid #9523aa;
+    border-radius: 6px;
+    background-color: white;
+    color: #3b2c58;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+  
+  .controls select:hover,
+  .controls select:focus {
+    border-color: #7a1a86;
+    outline: none;
+  }
+  
+  .map-wrapper {
+    flex-grow: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(149, 35, 170, 0.25);
+  }
+  
+  .route-info {
+    margin-top: 1rem;
+    max-width: 320px;
+    background-color: #9523aa;
+    color: white;
+    padding: 0.8rem 1.2rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  }
+  
+  @media (max-width: 768px) {
+    .daily-route-container {
+      height: 100vh;
+      padding: 0.5rem;
+    }
+    .controls {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .route-info {
+      max-width: 100%;
+    }
+  }
+  
