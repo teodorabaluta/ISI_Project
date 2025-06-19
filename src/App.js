@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 import ProfilePage from './components/ProfilePage';
 import GroupPage from './components/GroupPage';
@@ -39,7 +40,8 @@ const App = () => {
           <Route path="/group-details/:groupId/expenses" element={<ExpensesPage />} />
           <Route path="/daily-route" element={<DailyRouteMap />} />
         </Routes>
-        <Analytics /> {/* Integrat pentru monitorizare */}
+        <Analytics /> {/* Monitorizare trafic și utilizatori */}
+        <SpeedInsights /> {/* Colectare date performanță și viteze */}
       </div>
     </Router>
   );
