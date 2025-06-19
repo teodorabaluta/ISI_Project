@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
+
 import ProfilePage from './components/ProfilePage';
 import GroupPage from './components/GroupPage';
 import CreateGroupPage from './components/CreateGroupPage';
@@ -11,7 +13,7 @@ import AboutUs from './components/AboutUs';
 import GroupDetailsPage from './components/GroupDetailsPage';
 import MapComponent from './components/MapComponent';
 import ChatComponent from './components/ChatComponent';
-import CalendarComponent from './components/CalendarComponent'; 
+import CalendarComponent from './components/CalendarComponent';
 import ExpensesPage from './components/ExpensesPage';
 import DailyRouteMap from './components/DailyRouteMap';
 
@@ -34,9 +36,10 @@ const App = () => {
           <Route path="/group-details/:groupId/map" element={<MapComponent />} />
           <Route path="/group-details/:groupId/chat" element={<ChatComponent />} />
           <Route path="/group-details/:groupId/calendar" element={<CalendarComponent />} />
-          <Route path="/group-details/:groupId/expenses" element={<ExpensesPage/>} />
+          <Route path="/group-details/:groupId/expenses" element={<ExpensesPage />} />
           <Route path="/daily-route" element={<DailyRouteMap />} />
         </Routes>
+        <Analytics /> {/* Integrat pentru monitorizare */}
       </div>
     </Router>
   );
