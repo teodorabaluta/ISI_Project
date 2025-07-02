@@ -5,7 +5,7 @@
     width: 100%;
     background-color: #f0b8fa;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    z-index: 1000; /* Asigură că navbar-ul rămâne deasupra celorlalte elemente */
+    z-index: 1000; 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,7 +13,7 @@
 }
 
 .navbar-logo img {
-    height: 50px; /* Ajustează în funcție de dimensiunea dorită */
+    height: 50px; 
 }
 
 .navbar-links a {
@@ -25,5 +25,5 @@
 }
 
 .navbar-links a:hover {
-    color: #FFB7B2; /* Schimbă culoarea la hover */
+    color: #FFB7B2; 
 }

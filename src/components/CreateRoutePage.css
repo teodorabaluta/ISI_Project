@@ -1,13 +1,12 @@
-/* Stiluri pentru CreateRoutePage */
 .create-route-page {
-    background: linear-gradient(to right, #D6AEDD, #D6AEDD); /* Gradient pastelat */
+    background: linear-gradient(to right, #D6AEDD, #D6AEDD); 
     height: 100vh;
     display: flex;
-    justify-content: center; /* Centrează pe orizontală */
-    align-items: center; /* Centrează pe verticală */
+    justify-content: center; 
+    align-items: center;
     flex-direction: column;
     font-family: 'Arial', sans-serif;
-    color: #333; /* Text întunecat pentru un contrast mai bun */
+    color: #333; 
   }
   
   h2 {
@@ -21,7 +20,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 400px; /* Limitează lățimea formularului */
+    max-width: 400px; 
   }
   
   input, textarea {

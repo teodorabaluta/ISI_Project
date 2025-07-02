@@ -1,3 +1,5 @@
+//calendar component
+/*
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
@@ -22,7 +24,7 @@ const localDateToIsoString = (date) => {
 const CalendarComponent = () => {
   const { groupId } = useParams();
   const navigate = useNavigate();
-  const calendarRef = useRef(null);
+  const calendarRef = useRef(null); // ADĂUGAT
 
   const [events, setEvents] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -97,7 +99,7 @@ const CalendarComponent = () => {
     });
   
     setShowForm(true);
-    setSelectedEvent(null);
+    setSelectedEvent(null); // închidem modalul
     setTimeout(() => calendarRef.current?.getApi().updateSize(), 100);
   };
   
@@ -175,6 +177,8 @@ const CalendarComponent = () => {
           transition={{ type: 'spring', stiffness: 300 }}
           onClick={() => {
             setShowForm(!showForm);
+
+            // 🛠️ Soluție aplicată și la toggle simplu
             setTimeout(() => {
               calendarRef.current?.getApi().updateSize();
             }, 100);
@@ -205,7 +209,7 @@ const CalendarComponent = () => {
         )}
 
         <FullCalendar
-          ref={calendarRef}
+          ref={calendarRef} // ✅ ATAȘAT REF
           plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
           initialView="dayGridMonth"
           headerToolbar={{
@@ -238,7 +242,7 @@ const CalendarComponent = () => {
           eventClick={(info) => {
             const event = info.event;
             setSelectedEvent({
-              id: event.id,
+              id: event.id, // 👈 ADĂUGAT
               title: event.title,
               location: event.extendedProps.location,
               lat: event.extendedProps.lat,
@@ -327,3 +331,213 @@ const CalendarComponent = () => {
 };
 
 export default CalendarComponent;
+
+
+*/
+
+
+
+
+
+
+
+///chat component
+/*
+import React, { useEffect, useState, useRef } from 'react';
+import { useParams } from 'react-router-dom';
+import { collection, query, orderBy, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db, auth } from '../firebase';
+import './ChatComponent.css';  // Asumând că ai stilurile definite aici
+
+const ChatComponent = () => {
+  const { groupId } = useParams();  // Extragerea groupId din URL
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+  const messagesEndRef = useRef(null);
+
+
+  useEffect(() => {
+    if (!groupId) {
+      console.error("No groupId provided!");
+      return;
+    }
+    if (!auth.currentUser) {
+      console.error("User not authenticated!");
+      return;
+    }
+
+    const messagesRef = collection(db, `groups/${groupId}/messages`);
+    const q = query(messagesRef, orderBy("timestamp"));
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const fetchedMessages = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setMessages(fetchedMessages);
+    });
+
+    return () => unsubscribe();
+  }, [groupId]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+  
+
+  const handleSendMessage = async () => {
+    if (!newMessage.trim()) return;
+    if (!auth.currentUser) {
+      console.error("User not authenticated!");
+      return;
+    }
+
+    try {
+      const messagesRef = collection(db, `groups/${groupId}/messages`);
+      await addDoc(messagesRef, {
+        sender: auth.currentUser.email,
+        content: newMessage,
+        timestamp: serverTimestamp(),
+      });
+      setNewMessage('');
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
+
+  return (
+    <div className="chat-container2">
+      <div className="chat-messages2">
+  {messages.length > 0 ? messages.map(message => (
+    <div key={message.id} className={`chat-message ${message.sender === auth.currentUser.email ? "own-message2" : "other-message2"}`}>
+      <p><strong>{message.sender}:</strong> {message.content}</p>
+      <small>{new Date(message.timestamp?.toDate()).toLocaleTimeString()}</small>
+    </div>
+  )) : <p>No messages yet.</p>}
+  
+  <div ref={messagesEndRef} />
+</div>
+
+      <div className="chat-input2">
+        <input
+          type="text"
+          placeholder="Scrie un mesaj..."
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+        />
+        <button onClick={handleSendMessage}>Trimite</button>
+      </div>
+    </div>
+  );
+};
+
+export default ChatComponent;
+
+*/
+
+//profile page
+/*
+import React, { useState, useEffect } from 'react';
+import { getAuth } from 'firebase/auth';
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+  doc
+} from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import './ProfilePage.css';
+
+const ProfilePage = () => {
+  const [groups, setGroups] = useState([]);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const db = getFirestore();
+
+  useEffect(() => {
+    if (!user) {
+      setError('Trebuie să fii logat pentru a vizualiza grupurile.');
+      navigate('/');
+      return;
+    }
+
+    const fetchGroups = async () => {
+      try {
+        const q = query(
+          collection(db, 'groups'),
+          where('participants', 'array-contains', user.email)
+        );
+        const querySnapshot = await getDocs(q);
+        const allGroups = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setGroups(allGroups);
+      } catch (error) {
+        setError('Eroare la preluarea grupurilor');
+      }
+    };
+
+    fetchGroups();
+  }, [db, user, navigate]);
+
+  const handleCreateGroup = () => {
+    navigate('/create-group');
+  };
+
+  const handleJoinGroup = () => {
+    navigate('/groups');
+  };
+
+  const handleDeleteGroup = async (groupId) => {
+    const confirmDelete = window.confirm('Sigur vrei să ștergi acest grup?');
+    if (!confirmDelete) return;
+
+    try {
+      await deleteDoc(doc(db, 'groups', groupId));
+      setGroups(prev => prev.filter(g => g.id !== groupId));
+    } catch (err) {
+      alert('Eroare la ștergere: ' + err.message);
+    }
+  };
+
+  return (
+    <div className="profile-page">
+      <h1>Bine ai venit, {user?.email}</h1>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      <h2>Grupurile tale</h2>
+      <div className="group-list">
+        {groups.length > 0 ? (
+          groups.map(group => (
+            <div key={group.id} className="group-card">
+              <h3>{group.name}</h3>
+              <p>{group.description}</p>
+              <div className="group-actions">
+                  <button className="button" onClick={() => navigate(`/group-details/${group.id}`)}>
+                    Accesează
+                  </button>
+                  <button className="button delete" onClick={() => handleDeleteGroup(group.id)}>
+                    Șterge
+                  </button>
+
+</div>
+
+            </div>
+          ))
+        ) : (
+          <p>Nu faci parte din niciun grup încă.</p>
+        )}
+      </div>
+
+      <button onClick={handleCreateGroup}>Creează un nou grup</button>
+      <button onClick={handleJoinGroup}>Alătură-te unui grup</button>
+    </div>
+  );
+};
+
+export default ProfilePage;
+
+*/

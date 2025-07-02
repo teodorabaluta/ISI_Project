@@ -1,6 +1,6 @@
 import React from 'react';
-import './AboutUs.css';  // Asigură-te că ai importat CSS-ul corect
-import teamImage from '../assets/photo2.png';  // Actualizează cu calea corectă a imaginii
+import './AboutUs.css'; 
+import teamImage from '../assets/photo2.png';
 
 const AboutUs = () => {
   return (

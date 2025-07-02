@@ -11,7 +11,6 @@ const SignupPage = () => {
   const handleSignup = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      // Redirecționează utilizatorul după crearea contului
     } catch (err) {
       setError(`Signup failed: ${err.code} - ${err.message}`);
     }

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
-import image1 from '../assets/home-photo1.png';  // Verifică calea către imagine
-import image2 from '../assets/home-photo3.png';  // Verifică calea către imagine
+import image1 from '../assets/home-photo1.png'; 
+import image2 from '../assets/home-photo3.png';  
 
 const HomePage = () => {
   const navigate = useNavigate();

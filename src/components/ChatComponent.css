@@ -53,8 +53,8 @@
   padding: 10px;
   border-radius: 8px;
   margin: 5px;
-  width: 30%; /* Ajustează lățimea după preferințe */
-  margin-left: auto; /* Asigură alinierea la dreapta */
+  width: 30%;
+  margin-left: auto;
 }
 
 .other-message2 {
@@ -64,5 +64,5 @@
   padding: 10px;
   border-radius: 8px;
   margin: 5px;
-  width: 30%; /* Ajustează lățimea după preferințe */
+  width: 30%;
 }

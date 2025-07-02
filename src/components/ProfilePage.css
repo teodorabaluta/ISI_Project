@@ -1,5 +1,4 @@
 .profile-page {
-  /* Enhanced visual styling for better readability and aesthetics */
   background: linear-gradient(to right, #D6AEDD, #E8CEE6);
   font-family: 'Arial', sans-serif;
   color: #333;
@@ -33,4 +32,12 @@
 .button:hover {
   background-color: #FFB7B2;
   transform: scale(1.05);
+}
+
+.button.delete {
+  background-color: #d9534f;
+}
+
+.button.delete:hover {
+  background-color: #c9302c;
 }

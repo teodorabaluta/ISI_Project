@@ -6,6 +6,7 @@ import {
   useJsApiLoader,
   InfoWindow,
   DirectionsRenderer,
+  Polyline,
 } from "@react-google-maps/api";
 import {
   collection,
@@ -24,7 +25,6 @@ import { useParams } from "react-router-dom";
 import "./MapComponent.css";
 
 const MapComponent = () => {
-  // Declare hooks here at the top of the functional component
   const [isChatMinimized, setIsChatMinimized] = useState(false);
   const [markers, setMarkers] = useState([]);
   const [newLocation, setNewLocation] = useState(null);
@@ -38,24 +38,24 @@ const MapComponent = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [travelMode, setTravelMode] = useState("DRIVING");
+  const [directionKey, setDirectionKey] = useState(0);
+  const [previousDirections, setPreviousDirections] = useState([]);
 
 
   const autocompleteRef = useRef(null);
 
-  // Toggle chat functionality
   const toggleChat = () => {
     setIsChatMinimized(!isChatMinimized);
   };
 
   // Load Google Maps API
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyC2RelmO1xwOqOvoBWJOkS0ra1d7Fh89QE", // Replace with your API key
+    googleMapsApiKey: "AIzaSyC2RelmO1xwOqOvoBWJOkS0ra1d7Fh89QE", 
     libraries: ["places"],
   });
 
   const { groupId } = useParams();
 
-  // Check if the user is the organizer
   useEffect(() => {
     if (!groupId) {
       console.error("No groupId found!");
@@ -70,8 +70,6 @@ const MapComponent = () => {
         if (groupDoc.exists()) {
           const groupData = groupDoc.data();
           const currentUserEmail = auth.currentUser?.email;
-
-          // Check if the user is the creator
           
         } else {
           console.error("Group document does not exist!");
@@ -135,7 +133,7 @@ const MapComponent = () => {
   }, []);
   
 
-  // Fetch locations from Firestore
+
   useEffect(() => {
     if (!groupId) {
       console.error("No group ID for saving location.");
@@ -159,16 +157,15 @@ const MapComponent = () => {
     return () => unsubscribe();
   }, [groupId]);
 
-  // 🧹 Resetăm traseul dacă se schimbă metoda de transport
   useEffect(() => {
     setDirections(null);
     setDistance('');
     setDuration('');
-    setSelectedLocation(null); // <- ascunde infowindow-uri vechi
+    setSelectedLocation(null);
+    setDirectionKey((prev) => prev + 1); 
   }, [travelMode]);
   
-
-  // Add a new location
+  
   const handleAddLocation = async () => {
     if (!groupId) {
       console.error("No group ID for saving location.");
@@ -203,7 +200,6 @@ const MapComponent = () => {
     }
   };
 
-  // Handle place changed
   const handlePlaceChanged = () => {
     const place = autocompleteRef.current.getPlace();
     if (place.geometry) {
@@ -225,9 +221,9 @@ const MapComponent = () => {
       alert("You need at least two locations to generate a route.");
       return;
     }
-
+  
     const directionsService = new window.google.maps.DirectionsService();
-
+  
     const origin = { lat: markers[0].lat, lng: markers[0].lng };
     const destination = {
       lat: markers[markers.length - 1].lat,
@@ -237,7 +233,7 @@ const MapComponent = () => {
       location: { lat: marker.lat, lng: marker.lng },
       stopover: true,
     }));
-
+  
     directionsService.route(
       {
         origin,
@@ -247,28 +243,30 @@ const MapComponent = () => {
       },
       (result, status) => {
         if (status === window.google.maps.DirectionsStatus.OK) {
+          if (directions?.routes?.[0]?.overview_path) {
+            const oldPath = directions.routes[0].overview_path;
+            setPreviousDirections((prev) => [...prev, oldPath]);
+          }
+  
           setDirections(result);
-
+          setDirectionKey((prev) => prev + 1);
+  
           const route = result.routes[0];
-          const totalDistance = route.legs.reduce(
-            (acc, leg) => acc + leg.distance.value,
-            0
-          );
-          const totalDuration = route.legs.reduce(
-            (acc, leg) => acc + leg.duration.value,
-            0
-          );
-
+          const totalDistance = route.legs.reduce((acc, leg) => acc + leg.distance.value, 0);
+          const totalDuration = route.legs.reduce((acc, leg) => acc + leg.duration.value, 0);
+  
           setDistance(`${(totalDistance / 1000).toFixed(2)} km`);
           setDuration(`${(totalDuration / 60).toFixed(2)} minutes`);
         } else {
+          console.error("Failed to fetch directions:", status);
           alert("Could not generate route. Please try again.");
         }
       }
     );
   };
+  
+  
 
-  // Fetch chat messages
   useEffect(() => {
     if (!groupId) return;
 
@@ -286,7 +284,7 @@ const MapComponent = () => {
     return () => unsubscribe();
   }, [groupId]);
 
-  // Send a new chat message
+
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
 
@@ -366,7 +364,59 @@ const MapComponent = () => {
               onClick={() => setSelectedLocation(marker)}
             />
           ))}
-          {directions && <DirectionsRenderer directions={directions} />}
+{}
+{previousDirections.map((path, idx) => (
+  <Polyline
+  key={`poly-${idx}`}
+  path={path}
+  options={{
+    strokeColor: "#BBBBBB",
+    strokeOpacity: 0.4,
+    strokeWeight: 4,
+  }}
+/>
+
+))}
+
+
+
+
+
+        {}
+        {directions && (
+          <DirectionsRenderer
+            directions={directions}
+            options={{
+              polylineOptions: {
+                strokeColor: "#a24aa6",
+                strokeOpacity: 1,
+                strokeWeight: 6,
+              },
+              suppressMarkers: false,
+            }}
+            key={directionKey} 
+            onDirectionsChanged={() => {
+              const route = directions.routes[0];
+              const totalDistance = route.legs.reduce((acc, leg) => acc + leg.distance.value, 0);
+              const totalDuration = route.legs.reduce((acc, leg) => acc + leg.duration.value, 0);
+              setDistance(`${(totalDistance / 1000).toFixed(2)} km`);
+              setDuration(`${(totalDuration / 60).toFixed(2)} minutes`);
+            }}
+            onLoad={(directionsRenderer) => {
+              console.log("DirectionsRenderer loaded:", directionsRenderer);
+            }}
+            onUnmount={(directionsRenderer) => {
+              console.log("DirectionsRenderer unmounted:", directionsRenderer);
+            }}
+            onError={(error) => {
+              console.error("Error in DirectionsRenderer:", error);
+              alert("Error rendering directions. Please try again.");
+            }}
+          />
+        )}
+
+
+
           {selectedLocation && (
             <InfoWindow
               position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }}

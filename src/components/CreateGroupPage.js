@@ -6,16 +6,16 @@ import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import './CreateGroupPage.css';
 
 const CreateGroupPage = () => {
-  const [groupName, setGroupName] = useState(''); // Numele grupului
-  const [description, setDescription] = useState(''); // Descrierea grupului
-  const [password, setPassword] = useState(''); // Parola grupului
-  const [error, setError] = useState(null); // Mesaj de eroare
-  const navigate = useNavigate(); // Redirecționare după crearea grupului
+  const [groupName, setGroupName] = useState(''); 
+  const [description, setDescription] = useState(''); 
+  const [password, setPassword] = useState(''); 
+  const [error, setError] = useState(null); 
+  const navigate = useNavigate(); 
   const auth = getAuth();
   const user = auth.currentUser;
   const db = getFirestore();
 
-  // Funcția pentru crearea grupului
+
   const handleCreateGroup = async (e) => {
     e.preventDefault();
 
@@ -24,30 +24,27 @@ const CreateGroupPage = () => {
       return;
     }
 
-    // Verificăm dacă toate câmpurile sunt completate
     if (!groupName || !description || !password) {
       setError('Te rugăm să completezi toate câmpurile.');
       return;
     }
 
     try {
-      const token = Math.random().toString(36).substring(2, 15); // Generăm un token unic pentru grup
+      const token = Math.random().toString(36).substring(2, 15);
       const groupData = {
         name: groupName,
         description,
         creator: user.email,
-        password, // Adăugăm parola grupului
-        participants: [user.email], // Organizatorul este automat participant
+        password,
+        participants: [user.email],
         token,
       };
 
-      // Adăugăm grupul în baza de date
       await addDoc(collection(db, 'groups'), groupData);
 
-      // Navigăm către pagina de profil
       navigate('/profile');
     } catch (error) {
-      console.error("Eroare la crearea grupului: ", error); // Afisăm eroarea pentru depanare
+      console.error("Eroare la crearea grupului: ", error);
       setError('Eroare la crearea grupului. Încearcă din nou.');
     }
   };

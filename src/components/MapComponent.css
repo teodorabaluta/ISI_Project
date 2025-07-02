@@ -1,4 +1,4 @@
-/* General */
+
 body, html {
   margin: 0;
   padding: 0;
@@ -7,7 +7,7 @@ body, html {
   font-family: Arial, sans-serif;
 }
 
-/* Container principal */
+
 .map-container {
   display: flex;
   flex-direction: column;
@@ -17,7 +17,6 @@ body, html {
   overflow: hidden;
 }
 
-/* Bara de căutare */
 .search-bar {
   display: flex;
   justify-content: center;
@@ -54,7 +53,7 @@ body, html {
   background-color: #a20b6e;
 }
 
-/* Selector de transport */
+
 .transport-mode-container {
   position: absolute;
   top: 80px;
@@ -82,20 +81,19 @@ body, html {
   font-size: 14px;
 }
 
-/* Conținut principal */
+
 .map-and-list {
   display: flex;
   flex: 1;
   height: calc(100vh - 70px);
 }
 
-/* Hartă */
 .map-container .map {
   flex: 3;
   height: 100%;
 }
 
-/* Lista locațiilor */
+
 .location-list {
   flex: 1;
   padding: 20px;
@@ -135,7 +133,7 @@ body, html {
   background-color: #c9302c;
 }
 
-/* Informații traseu */
+
 .route-info {
   position: fixed;
   bottom: 20px;
@@ -165,7 +163,7 @@ body, html {
   font-size: 14px;
 }
 
-/* Panou direcții (opțional) */
+
 .directions-panel {
   position: absolute;
   top: 90px;
@@ -209,7 +207,7 @@ body, html {
 }
 
 
-/* Chat */
+
 .chat-container {
   position: absolute;
   bottom: 20px;

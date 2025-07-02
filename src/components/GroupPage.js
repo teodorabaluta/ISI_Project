@@ -5,8 +5,8 @@ import { getAuth } from 'firebase/auth';
 import './GroupPage.css';
 
 const GroupPage = () => {
-  const [groupName, setGroupName] = useState(''); // Numele grupului
-  const [groupPassword, setGroupPassword] = useState(''); // Parola grupului
+  const [groupName, setGroupName] = useState(''); 
+  const [groupPassword, setGroupPassword] = useState(''); 
   const [error, setError] = useState('');
   const db = getFirestore();
 
@@ -45,14 +45,13 @@ const GroupPage = () => {
         return;
       }
 
-      // Actualizăm lista participants adăugând utilizatorul
       const groupRef = doc(db, 'groups', groupDoc.id);
       await updateDoc(groupRef, {
         participants: arrayUnion(user.email)
       });
 
       alert('Te-ai alăturat cu succes grupului!');
-      setError(''); // reset error dacă a fost vreunul
+      setError('');
       setGroupName('');
       setGroupPassword('');
     } catch (error) {

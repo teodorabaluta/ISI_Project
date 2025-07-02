@@ -1,10 +1,9 @@
 .expenses-container {
-  
   display: flex;
   justify-content: center;
   align-items: flex-start;
   gap: 2rem;
-  height: calc(100vh - 100px); /* înălțime disponibilă fără scroll general */
+  height: calc(100vh - 100px);
   padding: 2rem;
   box-sizing: border-box;
   overflow: hidden;
@@ -23,20 +22,22 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
+/* FORMULARUL DE CHELTUIELI */
 .expenses-form form {
-  background-color: #fbe2fb;
-  border: none;
-  flex: 1;
   display: flex;
   flex-direction: column;
+  flex: 1;
   overflow-y: auto;
-  padding-right: 5px;
+  padding: 0.5rem;
+  box-sizing: border-box;
+
 }
 
-.expenses-list {
-  overflow-y: auto;
+.expenses-form form > * {
+  margin-bottom: 1rem;
 }
 
 .expenses-form h2,
@@ -45,6 +46,73 @@
   font-size: 1.3rem;
   color: #4a004e;
   margin-bottom: 1rem;
+}
+
+.expenses-form input,
+.expenses-form select {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+}
+
+/* LABEL + BUTON */
+.expenses-form label {
+  font-weight: 500;
+  margin: 0.5rem 0 0.25rem;
+  display: block;
+}
+
+.expenses-form button {
+  background-color: #a24aa6;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+  margin-top: auto;
+}
+
+.expenses-form button:hover {
+  background-color: #872b94;
+}
+
+/* CHECKBOX-URI */
+.checkbox-group {
+  max-height: 160px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #d7b1e6;
+  border-radius: 8px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #333;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+.checkbox-item input[type="checkbox"] {
+  accent-color: #a24aa6;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+/* LISTA DE CHELTUIELI */
+.expenses-list {
+  overflow-y: auto;
 }
 
 .expenses-list ul {
@@ -67,53 +135,25 @@
   color: #722f91;
 }
 
-.expenses-form input,
-.expenses-form select {
-  width: 100%;
-  padding: 0.6rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-
-  font-size: 0.9rem;
-}
-
-.expenses-form label {
-  font-weight: 500;
-  margin-bottom: 0.4rem;
-  display: block;
-}
-
-.expenses-form button {
+/* BUTON CONFIRMARE PLATĂ */
+.expenses-list button {
   background-color: #a24aa6;
   color: white;
-  padding: 0.75rem;
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
   transition: 0.2s ease;
-  margin-top: auto;
+  margin-top: 0.5rem;
+  max-width: 220px;
 }
 
-.expenses-form button:hover {
+.expenses-list button:hover {
   background-color: #872b94;
 }
 
-.checkbox-group {
-  max-height: 160px;
-  overflow-y: auto;
-  background-color: #fbe2fb;
-  border: 1px solid #d7b1e6;
-  border-radius: 8px;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.checkbox-item {
-  margin-bottom: 6px;
-  font-size: 0.85rem;
-}
-
+/* RESPONSIVE */
 @media (max-width: 900px) {
   .expenses-container {
     flex-direction: column;

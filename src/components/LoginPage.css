@@ -1,4 +1,4 @@
-/* Stiluri generale pentru pagina de login */
+
 .login-page {
   background: linear-gradient(to right, #D6AEDD, #D6AEDD);
   height: 100vh;
@@ -9,7 +9,7 @@
   font-family: 'Arial', sans-serif;
 }
 
-/* Titlu Login centrat */
+
 .login-title {
   font-size: 2.5rem;
   text-align: center;
@@ -17,7 +17,7 @@
   margin-bottom: 20px;
 }
 
-/* Formularul */
+
 form {
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@ form {
   max-width: 400px;
 }
 
-/* Etichetele */
+
 label {
   color: black;
   font-size: 1rem;
@@ -39,7 +39,7 @@ label {
   align-self: flex-start;
 }
 
-/* Câmpurile de input */
+
 input {
   padding: 12px;
   font-size: 1rem;
@@ -50,7 +50,7 @@ input {
   box-sizing: border-box;
 }
 
-/* Butonul Login */
+
 button {
   background-color: #9523aa;
   color: white;
@@ -69,7 +69,7 @@ button:hover {
   color: #9523aa;
 }
 
-/* Mesajele & linkurile */
+
 p {
   font-size: 1rem;
   text-align: center;

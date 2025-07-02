@@ -1,13 +1,12 @@
-/* Stiluri pentru pagina de înregistrare */
 .registration-page {
-    background: linear-gradient(to right, #D6AEDD, #D6AEDD); /* Gradient pastelat pe întreaga pagină */
-    height: 100vh; /* Întinde pe întreaga înălțime a ecranului */
-    width: 100vw; /* Întinde pe întreaga lățime a ecranului */
+    background: linear-gradient(to right, #D6AEDD, #D6AEDD); 
+    height: 100vh; 
+    width: 100vw; 
     display: flex;
-    justify-content: center; /* Centrează conținutul pe orizontală */
-    align-items: center; /* Centrează conținutul pe verticală */
+    justify-content: center; 
+    align-items: center; 
     font-family: 'Arial', sans-serif;
-    color: white; /* Text alb pentru contrast */
+    color: white;
     flex-direction: column;
   }
   
@@ -15,16 +14,16 @@
     font-size: 2.5rem;
     text-align: center;
     margin-bottom: 20px;
-    color: #9523aa; /* Culoare în ton cu tema aplicației */
+    color: #9523aa; 
   }
   
   form {
-    background-color: rgba(255, 255, 255, 0.8); /* Fundal alb transparent */
+    background-color: rgba(255, 255, 255, 0.8); 
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 500px; /* Lățime limitată pentru formular */
+    max-width: 500px; 
   }
   
   input {
@@ -34,7 +33,7 @@
     border-radius: 10px;
     border: 1px solid #9523aa;
     width: 100%;
-    box-sizing: border-box; /* Asigură că padding-ul nu mărește dimensiunea input-ului */
+    box-sizing: border-box; 
   }
   
   button {
@@ -47,7 +46,7 @@
     border-radius: 30px;
     cursor: pointer;
     transition: 0.3s;
-    width: 100%; /* Butonul să ocupe întreaga lățime a formularului */
+    width: 100%; 
   }
   
   button:hover {

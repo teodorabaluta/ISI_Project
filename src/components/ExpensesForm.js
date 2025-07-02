@@ -23,7 +23,7 @@ const ExpensesForm = () => {
 
         if (data && data.participants) {
           setParticipants(data.participants);
-          setSelected(data.participants); // selectați toți implicit
+          setSelected(data.participants); 
         }
       } catch (err) {
         console.error("Failed to fetch group:", err.message);
@@ -71,7 +71,7 @@ const ExpensesForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="event-form">
+    <form onSubmit={handleSubmit}>
       {error && <div className="alert">{error}</div>}
 
       <input

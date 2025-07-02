@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Folosim useNavigate
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import './LoginPage.css';
-// src/components/LoginPage.js
-import { auth } from '../firebase'; // Asigură-te că folosești instanța corectă de auth din firebase
+
+import { auth } from '../firebase'; 
 
 
 const LoginPage = () => {
@@ -19,7 +19,7 @@ const LoginPage = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/profile');  // Navigăm către profil indiferent de rol
+      navigate('/profile'); 
     } catch (err) {
       setError('Login invalid. Please check your credentials.');
     }

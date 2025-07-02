@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { auth } from '../firebase';
 
-// Creăm un context pentru utilizator
+// Cream un context pentru utilizator
 const UserContext = createContext();
 
 // Provider pentru UserContext
@@ -10,7 +10,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Verifică dacă utilizatorul este autentificat
+    // Verifica daca utilizatorul este autentificat
     const unsubscribe = auth.onAuthStateChanged(setUser);
     return () => unsubscribe();
   }, []);
@@ -22,5 +22,4 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-// Hook pentru a folosi UserContext
 export const useUser = () => useContext(UserContext);

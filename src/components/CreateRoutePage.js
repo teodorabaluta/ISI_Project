@@ -1,21 +1,19 @@
 // src/components/CreateRoutePage.js
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // Navigare între pagini
-import './CreateRoutePage.css';  // Importăm fișierul CSS
+import { useNavigate } from 'react-router-dom'; 
+import './CreateRoutePage.css'; 
 
 const CreateRoutePage = () => {
-  const [routeName, setRouteName] = useState('');  // Numele rutei
-  const [routeDescription, setRouteDescription] = useState('');  // Descrierea rutei
-  const navigate = useNavigate();  // Pentru redirecționare
+  const [routeName, setRouteName] = useState(''); 
+  const [routeDescription, setRouteDescription] = useState('');  
+  const navigate = useNavigate(); 
 
   const handleCreateRoute = (e) => {
     e.preventDefault();
 
-    // Logica pentru a salva ruta (de exemplu, într-o bază de date)
     console.log('Route created:', routeName, routeDescription);
 
-    // După ce ruta este creată, redirecționează utilizatorul înapoi la profil
     navigate('/profile');
   };
 

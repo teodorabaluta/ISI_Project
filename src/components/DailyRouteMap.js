@@ -17,7 +17,7 @@ const DailyRouteMap = () => {
 
   const [events, setEvents] = useState([]);
   const [directions, setDirections] = useState(null);
-  const [center, setCenter] = useState({ lat: 44.4268, lng: 26.1025 }); // București ca default
+  const [center, setCenter] = useState({ lat: 44.4268, lng: 26.1025 }); 
   const [loading, setLoading] = useState(true);
   const [userLocation, setUserLocation] = useState(null);
   const [travelMode, setTravelMode] = useState("WALKING");
@@ -25,13 +25,13 @@ const DailyRouteMap = () => {
   const [duration, setDuration] = useState("");
   const [selectedMarker, setSelectedMarker] = useState(null);
 
-  // Load Google Maps API
+
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: "AIzaSyC2RelmO1xwOqOvoBWJOkS0ra1d7Fh89QE",
     libraries: ["places"],
   });
 
-  // Load user location
+  // Se incarca locatia userului
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -46,7 +46,7 @@ const DailyRouteMap = () => {
     }
   }, []);
 
-  // Load events for selected date
+  // Incarca evenimentele pe ziua selectata
   useEffect(() => {
     if (!groupId || !selectedDate) return;
 
@@ -82,7 +82,7 @@ const DailyRouteMap = () => {
     return () => unsubscribe();
   }, [groupId, selectedDate]);
 
-  // Generate route with selected travel mode
+  // Genereaza ruta cu modul de transport selectat
   useEffect(() => {
     if (!isLoaded || events.length < 2) return;
 
@@ -107,7 +107,7 @@ const DailyRouteMap = () => {
           setDirections(result);
           setCenter(origin);
 
-          // Calculează distanța totală și durata
+          // Calculeaza distanta totala si durata
           const route = result.routes[0];
           const totalDistance = route.legs.reduce((acc, leg) => acc + leg.distance.value, 0);
           const totalDuration = route.legs.reduce((acc, leg) => acc + leg.duration.value, 0);

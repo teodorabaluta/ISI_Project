@@ -40,8 +40,8 @@ const App = () => {
           <Route path="/group-details/:groupId/expenses" element={<ExpensesPage />} />
           <Route path="/daily-route" element={<DailyRouteMap />} />
         </Routes>
-        <Analytics /> {/* Monitorizare trafic și utilizatori */}
-        <SpeedInsights /> {/* Colectare date performanță și viteze */}
+        <Analytics /> {}
+        <SpeedInsights /> {}
       </div>
     </Router>
   );

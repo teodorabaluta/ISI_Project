@@ -3,24 +3,24 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative; /* Pentru poziționarea absolută a imaginilor */
+  position: relative; 
 }
 
 .home-content {
   width: 90%;
-  position: relative; /* Relativ pentru a poziționa imagini în cadrul acestui container */
+  position: relative; 
 }
 
 .home-image {
   position: absolute;
-  width: 45%; /* Reducem dimensiunea pentru a fi mai potrivită */
-  height: auto; /* Menține proporția corectă */
-  border-radius: 10px; /* Menține colțurile rotunjite */
+  width: 45%; 
+  height: auto; 
+  border-radius: 10px; 
 }
 
 .left-image {
-  left: 140%; /* Aducem imaginea mai aproape de marginea stângă */
-  top: -166%; /* Ridicăm imaginea pentru aliniere mai bună */
+  left: 140%; 
+  top: -166%; 
   width: 75%;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .navigation-buttons {
-  z-index: 100; /* Asigură că butoanele sunt deasupra imaginilor */
+  z-index: 100; 
   position: relative;
 }
 

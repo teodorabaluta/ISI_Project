@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { collection, query, orderBy, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db, auth } from '../firebase';
-import './ChatComponent.css';  // Asumând că ai stilurile definite aici
+import './ChatComponent.css';
 
 const ChatComponent = () => {
-  const { groupId } = useParams();  // Extragerea groupId din URL
+  const { groupId } = useParams();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const messagesEndRef = useRef(null);
+
 
   useEffect(() => {
     if (!groupId) {
@@ -33,6 +35,11 @@ const ChatComponent = () => {
     return () => unsubscribe();
   }, [groupId]);
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+  
+
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
     if (!auth.currentUser) {
@@ -56,13 +63,16 @@ const ChatComponent = () => {
   return (
     <div className="chat-container2">
       <div className="chat-messages2">
-        {messages.length > 0 ? messages.map(message => (
-          <div key={message.id} className={`chat-message ${message.sender === auth.currentUser.email ? "own-message2" : "other-message2"}`}>
-            <p><strong>{message.sender}:</strong> {message.content}</p>
-            <small>{new Date(message.timestamp?.toDate()).toLocaleTimeString()}</small>
-          </div>
-        )) : <p>No messages yet.</p>}
-      </div>
+  {messages.length > 0 ? messages.map(message => (
+    <div key={message.id} className={`chat-message ${message.sender === auth.currentUser.email ? "own-message2" : "other-message2"}`}>
+      <p><strong>{message.sender}:</strong> {message.content}</p>
+      <small>{new Date(message.timestamp?.toDate()).toLocaleTimeString()}</small>
+    </div>
+  )) : <p>No messages yet.</p>}
+  
+  <div ref={messagesEndRef} />
+</div>
+
       <div className="chat-input2">
         <input
           type="text"
